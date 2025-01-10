@@ -28,50 +28,60 @@ if (pertenceFibonacci(numeroInformado)) {
 
 // 2
 
-// Função para calcular os valores solicitados
 function calcularFaturamento(dados) {
-    let menorFaturamento = Infinity; // Inicializa com um valor alto
-    let maiorFaturamento = -Infinity; // Inicializa com um valor baixo
-    let somaFaturamento = 0;
-    let diasComFaturamento = 0;
+    let menor = Infinity, maior = -Infinity, soma = 0, dias = 0;
 
-    // Itera pelos dados de faturamento
     dados.forEach(dia => {
-        if (dia.faturamento > 0) { // Ignora dias sem faturamento
-            somaFaturamento += dia.faturamento;
-            diasComFaturamento++;
-            menorFaturamento = Math.min(menorFaturamento, dia.faturamento); // Encontra o menor
-            maiorFaturamento = Math.max(maiorFaturamento, dia.faturamento); // Encontra o maior
+        if (dia.valor > 0) {
+            soma += dia.valor;
+            dias++;
+            menor = Math.min(menor, dia.valor);
+            maior = Math.max(maior, dia.valor);
         }
     });
 
-    // Calcula a média e conta os dias acima da média
-    let mediaFaturamento = somaFaturamento / diasComFaturamento;
-    let diasAcimaDaMedia = dados.filter(dia => dia.faturamento > mediaFaturamento).length;
+    let media = soma / dias;
+    let diasAcimaDaMedia = dados.filter(dia => dia.valor > media).length;
 
-    return {
-        menorFaturamento,
-        maiorFaturamento,
-        diasAcimaDaMedia
-    };
+    return { menor, maior, diasAcimaDaMedia, media };
 }
 
-// Exemplo de dados de faturamento
 const faturamento = [
-    {"dia": 1, "faturamento": 1000},
-    {"dia": 2, "faturamento": 1500},
-    {"dia": 3, "faturamento": 0},
-    {"dia": 4, "faturamento": 1200},
-    {"dia": 5, "faturamento": 1800},
-    {"dia": 6, "faturamento": 0},
-    {"dia": 7, "faturamento": 2000},
-    {"dia": 8, "faturamento": 2100}
+    {"dia": 1, "valor": 22174.1664},
+    {"dia": 2, "valor": 24537.6698},
+    {"dia": 3, "valor": 26139.6134},
+    {"dia": 4, "valor": 0.0},
+    {"dia": 5, "valor": 0.0},
+    {"dia": 6, "valor": 26742.6612},
+    {"dia": 7, "valor": 0.0},
+    {"dia": 8, "valor": 42889.2258},
+    {"dia": 9, "valor": 46251.174},
+    {"dia": 10, "valor": 11191.4722},
+    {"dia": 11, "valor": 0.0},
+    {"dia": 12, "valor": 0.0},
+    {"dia": 13, "valor": 3847.4823},
+    {"dia": 14, "valor": 373.7838},
+    {"dia": 15, "valor": 2659.7563},
+    {"dia": 16, "valor": 48924.2448},
+    {"dia": 17, "valor": 18419.2614},
+    {"dia": 18, "valor": 0.0},
+    {"dia": 19, "valor": 0.0},
+    {"dia": 20, "valor": 35240.1826},
+    {"dia": 21, "valor": 43829.1667},
+    {"dia": 22, "valor": 18235.6852},
+    {"dia": 23, "valor": 4355.0662},
+    {"dia": 24, "valor": 13327.1025},
+    {"dia": 25, "valor": 0.0},
+    {"dia": 26, "valor": 0.0},
+    {"dia": 27, "valor": 25681.8318},
+    {"dia": 28, "valor": 1718.1221},
+    {"dia": 29, "valor": 13220.495},
+    {"dia": 30, "valor": 8414.61}
 ];
 
-// Calcula os resultados
 const resultado = calcularFaturamento(faturamento);
 
-// Exibe os resultados
-console.log("Menor valor de faturamento: R$ ${resultado.menorFaturamento}");
-console.log("Maior valor de faturamento: R$ ${resultado.maiorFaturamento}");
-console.log("Número de dias com faturamento superior à média mensal: ${resultado.diasAcimaDaMedia}");
+console.log(`Menor valor de faturamento: R$ ${resultado.menor}`);
+console.log(`Maior valor de faturamento: R$ ${resultado.maior}`);
+console.log(`Dias acima da média: ${resultado.diasAcimaDaMedia}`);
+console.log(`Média mensal: R$ ${resultado.media.toFixed(2)}`);
